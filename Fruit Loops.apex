@@ -1,4 +1,4 @@
-/*
+ /*
 two types of for loops:
 1. for each
 2. traditional for loop
