@@ -31,9 +31,15 @@ List<Object> ex3_myData = (List<Object>) payload.get('data');
 Map<String, Object> ex3_myFirstPieceOfData = (Map<String, Object>) ex3_myData[0];
 system.debug('ANSWER FOR EXAMPLE 3: '+ ex3_myFirstPieceOfData.get('symbolType'));
 
+// // 4. Give the last instance of tradeSize (ignore raw). Expected answer: 600
+// List<Object> ex4_myData = (List<Object>) payload.get('data');
+// Map<String, Object> ex4_myFirstPieceOfData = (Map<String, Object>) ex4_myData[19];
+// system.debug('ANSWER FOR EXAMPLE 4: '+ ex4_myFirstPieceOfData.get('tradeSize'));
+
 // 4. Give the last instance of tradeSize (ignore raw). Expected answer: 600
 List<Object> ex4_myData = (List<Object>) payload.get('data');
-Map<String, Object> ex4_myFirstPieceOfData = (Map<String, Object>) ex4_myData[19];
+Integer ex4_myDataLength = ex4_myData.size() - 1;
+Map<String, Object> ex4_myFirstPieceOfData = (Map<String, Object>) ex4_myData[ex4_myDataLength];
 system.debug('ANSWER FOR EXAMPLE 4: '+ ex4_myFirstPieceOfData.get('tradeSize'));
 
 // 5. Give the first instance dte in raw. Expected answer: 10
@@ -59,7 +65,22 @@ List<Object> ex7_myData =  (List<Object>)payload.get('data');
      }
      
   }
-system.debug('ANSWER FOR EXAMPLE 7: ');
+// system.debug('ANSWER FOR EXAMPLE 7: ');
 
 // 8. Loop through the maps in data until you find a volume < 1k and give the lastPrice from the raw. Expected answer: 167.6
-system.debug('ANSWER FOR EXAMPLE 8: ');
+List<Object> ex8_myData =  (List<Object>)payload.get('data');
+Object ex8_Answer;
+  for(Object payloadData : ex8_myData){
+    Map<String, Object> ex8_myFirstPieceOfData = (Map<String, Object>) payloadData;
+    Map<String, Object> ex8_mySecondPieceOfData = (Map<String, Object>)ex8_myFirstPieceOfData.get('raw');
+    //system.debug(ex8_mySecondPieceOfData.get('volume'));
+    Integer ex8_myVar = (Integer)ex8_mySecondPieceOfData.get('volume');
+     if( ex8_myVar < 1000 )
+     {
+          //system.debug('ANSWER FOR EXAMPLE 8: '+ex8_mySecondPieceOfData.get('lastPrice'));
+          ex8_Answer = ex8_mySecondPieceOfData.get('lastPrice');
+          break;
+     }
+     
+  }
+system.debug('ANSWER FOR EXAMPLE 8: '+ex8_Answer);
